@@ -48,7 +48,7 @@ namespace RawSocket
 			packet.Messagesize = data.Length + 4;
 			packet.Checksum = packet.getChecksum();
 
-			host.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 3000);
+			host.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 100);
 			Console.WriteLine("ICMP packet prepared");
 		}
 
@@ -56,10 +56,10 @@ namespace RawSocket
 		{
 			Console.WriteLine("Sending ICMP packet");
 			host.SendTo(packet.getBytes(), packet.Messagesize + 4, SocketFlags.None, iep);
-			try
+			/*try
 			{
 				data = new byte[BUFFER_SIZE];
-				recv = host.ReceiveFrom(data, ref ep);
+				recv = host.ReceiveFrom(data, ref ep)	;
 				Console.WriteLine("ICMP response received");
 			}
 			catch (SocketException exc)
@@ -67,16 +67,7 @@ namespace RawSocket
 				Console.WriteLine(exc.Message);
 			}
 
-			ICMPHeader response = new ICMPHeader(data, recv);
-			Console.WriteLine("response from: {0}", ep.ToString());
-			Console.WriteLine("  Type {0}", response.Type);
-			Console.WriteLine("  Code: {0}", response.Code);
-			int Identifier = BitConverter.ToInt16(response.Message, 0);
-			int Sequence = BitConverter.ToInt16(response.Message, 2);
-			Console.WriteLine("  Identifier: {0}", Identifier);
-			Console.WriteLine("  Sequence: {0}", Sequence);
-			string stringData = Encoding.ASCII.GetString(response.Message, 4, response.Messagesize - 4);
-			Console.WriteLine("  data: {0}", stringData);
+			ICMPHeader response = new ICMPHeader(data, recv);*/
 			host.Close();
 		}
 		#endregion
@@ -99,10 +90,7 @@ namespace RawSocket
 
 			foreach (Match m in Regex.Matches(cmdOutput, pattern, RegexOptions.IgnoreCase))
 			{
-				Console.Write(m.Groups["mac"].Value + " ");
-				Console.Write(m.Groups["ip"].Value);
-				pair.Add(new IPMacPair(m.Groups["mac"].Value, m.Groups["ip"].Value));
-				Console.WriteLine();
+				pair.Add(new IPMacPair(m.Groups["ip"].Value, m.Groups["mac"].Value));
 			}
 			return pair;
 		}
