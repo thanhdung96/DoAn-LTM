@@ -81,6 +81,16 @@
   <ItemGroup>
     <Folder Include="Network\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProtocolHeaders\ProtocolHeaders.csproj">
+      <Project>{d6197680-4a63-4e41-95e1-e068b6565c20}</Project>
+      <Name>ProtocolHeaders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RawSocket\RawSocket.csproj">
+      <Project>{8cdfdfed-713d-4609-9d95-3a68a6fa3c57}</Project>
+      <Name>RawSocket</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

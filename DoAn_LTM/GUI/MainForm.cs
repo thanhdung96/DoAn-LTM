@@ -1,8 +1,6 @@
 ﻿using System.Windows.Forms;
-using System.Net;
-using System.Threading;
-using System.Net.NetworkInformation;
-using System.Text;
+using System.Collections.Generic;
+using RawSocket;
 
 namespace DoAn_LTM.GUI
 {
@@ -32,24 +30,9 @@ namespace DoAn_LTM.GUI
 
 		private void btnFindStations_Click(object sender, System.EventArgs e)
 		{
-			AutoResetEvent waiter = new AutoResetEvent(false);
-			Ping pingSender = new Ping();
-			pingSender.PingCompleted += new PingCompletedEventHandler(PingCompletedCallback);
-			IPAddress address = IPAddress.Loopback;
-			string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-			byte[] buffer = Encoding.ASCII.GetBytes(data);
-
-			int timeout = 10000;
-			PingOptions options = new PingOptions(64, true);
-			options.DontFragment = true;
-			pingSender.SendAsync(address, timeout, buffer, options, waiter);
-			waiter.WaitOne();
-		}
-
-		private void PingCompletedCallback(object sender, PingCompletedEventArgs e)
-		{
-			lbxStatus.Items.Add("Ok");
-			lbxStations.Items.Add(e.Reply.Address);
+			List<IPMacPair> hosts = new List<IPMacPair>();
+			NetworkDiscovery discovery = new NetworkDiscovery("172.17.255.255");
+			hosts = discovery.getARP();
 		}
 	}
 }

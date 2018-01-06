@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace RawSocket
+namespace ProtocolHeaders
 {
 	class TcpHeader
 	{

@@ -190,33 +190,35 @@
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.lbxStatus);
-			this.groupBox2.Location = new System.Drawing.Point(387, 196);
+			this.groupBox2.Location = new System.Drawing.Point(12, 272);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(173, 70);
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
+			this.groupBox2.Size = new System.Drawing.Size(548, 77);
 			this.groupBox2.TabIndex = 6;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Status";
 			// 
 			// lbxStatus
 			// 
+			this.lbxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lbxStatus.FormattingEnabled = true;
-			this.lbxStatus.Location = new System.Drawing.Point(6, 19);
+			this.lbxStatus.Location = new System.Drawing.Point(0, 13);
 			this.lbxStatus.Name = "lbxStatus";
-			this.lbxStatus.Size = new System.Drawing.Size(157, 43);
+			this.lbxStatus.Size = new System.Drawing.Size(548, 64);
 			this.lbxStatus.TabIndex = 5;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(572, 278);
+			this.ClientSize = new System.Drawing.Size(572, 361);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.dgvOpenPorts);
 			this.Controls.Add(this.lbxStations);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnFindStations);
 			this.Controls.Add(this.btnScan);
-			this.MaximumSize = new System.Drawing.Size(588, 317);
+			this.MaximumSize = new System.Drawing.Size(588, 400);
 			this.MinimumSize = new System.Drawing.Size(588, 317);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
