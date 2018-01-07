@@ -8,7 +8,7 @@
 		public string MAC
 		{
 			get { return mac; }
-			set { mac = value; }
+			set { mac = value.ToUpper(); }
 		}
 
 		public string IP

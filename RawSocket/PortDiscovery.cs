@@ -47,7 +47,7 @@ namespace RawSocket
 		public void BeginScanPort(ref List<int> OpenPorts)
 		{
 			//whole operation will take about 11 mins for full scan
-			for (int port = this.range.From; port <+ this.range.To; port++)
+			for (int port = this.range.From; port <= this.range.To; port++)
 			{
 				try
 				{

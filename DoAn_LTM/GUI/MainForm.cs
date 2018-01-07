@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using RawSocket;
+using System;
 
 namespace DoAn_LTM.GUI
 {
@@ -25,8 +26,6 @@ namespace DoAn_LTM.GUI
 			dgvStations.DataSource = hosts;
 
 			rbtnFullScan.CheckedChanged += rbtnFullScan_CheckedChanged;
-			nudFrom.Enabled = false;
-			nudTo.Enabled = false;
 		}
 
 		private void btnFindStations_Click(object sender, System.EventArgs e)
@@ -44,6 +43,34 @@ namespace DoAn_LTM.GUI
 
 			dgvStations.DataSource = null;
 			dgvStations.DataSource = hosts;
+		}
+
+		private void btnScan_Click(object sender, System.EventArgs e)
+		{
+			string IP;
+			IPAddress remoteHost;
+			PortDiscovery discovery;
+			UInt16 from, to;
+			List<int> OpenPorts;
+
+			if (dgvStations.SelectedCells.Count > 0)
+			{
+				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
+				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
+				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
+
+				remoteHost = IPAddress.Parse(IP);
+				from = Convert.ToUInt16(nudFrom.Value);
+				to = Convert.ToUInt16(nudTo.Value);
+				discovery = new PortDiscovery(from, to, remoteHost);
+				OpenPorts = new List<int>();
+
+				discovery.BeginScanPort(ref OpenPorts);
+
+				foreach(int port in OpenPorts)
+					lbxOpenports.Items.Add(port);
+				lblStatus.Text = OpenPorts.Count + " port(s) are open";
+			}
 		}
 
 		void rbtnFullScan_CheckedChanged(object sender, System.EventArgs e)
@@ -121,7 +148,6 @@ namespace DoAn_LTM.GUI
 			}
 			return new IPAddress(broadcastIPBytes);
 		}
-
 		#endregion
 	}
 }

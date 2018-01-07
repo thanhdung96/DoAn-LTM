@@ -37,8 +37,9 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.rbtnRange = new System.Windows.Forms.RadioButton();
 			this.rbtnFullScan = new System.Windows.Forms.RadioButton();
-			this.dgvOpenPorts = new System.Windows.Forms.DataGridView();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.lblSubnet = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			this.lblNICName = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.lblBroadcast = new System.Windows.Forms.Label();
@@ -48,12 +49,12 @@
 			this.cbxIP = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.dgvStations = new System.Windows.Forms.DataGridView();
-			this.label5 = new System.Windows.Forms.Label();
-			this.lblSubnet = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.lblStatus = new System.Windows.Forms.Label();
+			this.lbxOpenports = new System.Windows.Forms.ListBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dgvOpenPorts)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStations)).BeginInit();
 			this.SuspendLayout();
@@ -66,6 +67,7 @@
 			this.btnScan.TabIndex = 1;
 			this.btnScan.Text = "Scan";
 			this.btnScan.UseVisualStyleBackColor = true;
+			this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
 			// 
 			// btnFindStations
 			// 
@@ -159,35 +161,24 @@
 			// rbtnRange
 			// 
 			this.rbtnRange.AutoSize = true;
+			this.rbtnRange.Checked = true;
 			this.rbtnRange.Location = new System.Drawing.Point(6, 42);
 			this.rbtnRange.Name = "rbtnRange";
 			this.rbtnRange.Size = new System.Drawing.Size(57, 17);
 			this.rbtnRange.TabIndex = 1;
+			this.rbtnRange.TabStop = true;
 			this.rbtnRange.Text = "Range";
 			this.rbtnRange.UseVisualStyleBackColor = true;
 			// 
 			// rbtnFullScan
 			// 
 			this.rbtnFullScan.AutoSize = true;
-			this.rbtnFullScan.Checked = true;
 			this.rbtnFullScan.Location = new System.Drawing.Point(6, 19);
 			this.rbtnFullScan.Name = "rbtnFullScan";
 			this.rbtnFullScan.Size = new System.Drawing.Size(69, 17);
 			this.rbtnFullScan.TabIndex = 0;
-			this.rbtnFullScan.TabStop = true;
 			this.rbtnFullScan.Text = "Full Scan";
 			this.rbtnFullScan.UseVisualStyleBackColor = true;
-			// 
-			// dgvOpenPorts
-			// 
-			this.dgvOpenPorts.AllowUserToAddRows = false;
-			this.dgvOpenPorts.AllowUserToDeleteRows = false;
-			this.dgvOpenPorts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvOpenPorts.Location = new System.Drawing.Point(12, 152);
-			this.dgvOpenPorts.Name = "dgvOpenPorts";
-			this.dgvOpenPorts.ReadOnly = true;
-			this.dgvOpenPorts.Size = new System.Drawing.Size(369, 114);
-			this.dgvOpenPorts.TabIndex = 5;
 			// 
 			// groupBox2
 			// 
@@ -208,6 +199,23 @@
 			this.groupBox2.TabIndex = 6;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Local Infomation";
+			// 
+			// lblSubnet
+			// 
+			this.lblSubnet.AutoSize = true;
+			this.lblSubnet.Location = new System.Drawing.Point(372, 54);
+			this.lblSubnet.Name = "lblSubnet";
+			this.lblSubnet.Size = new System.Drawing.Size(0, 13);
+			this.lblSubnet.TabIndex = 16;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(313, 52);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(44, 13);
+			this.label5.TabIndex = 15;
+			this.label5.Text = "Subnet:";
 			// 
 			// lblNICName
 			// 
@@ -284,36 +292,49 @@
 			this.dgvStations.AllowUserToDeleteRows = false;
 			this.dgvStations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvStations.Location = new System.Drawing.Point(12, 12);
+			this.dgvStations.MultiSelect = false;
 			this.dgvStations.Name = "dgvStations";
 			this.dgvStations.ReadOnly = true;
+			this.dgvStations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgvStations.Size = new System.Drawing.Size(369, 134);
 			this.dgvStations.TabIndex = 7;
 			// 
-			// label5
+			// label6
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(313, 52);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(44, 13);
-			this.label5.TabIndex = 15;
-			this.label5.Text = "Subnet:";
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(388, 197);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(40, 13);
+			this.label6.TabIndex = 8;
+			this.label6.Text = "Status:";
 			// 
-			// lblSubnet
+			// lblStatus
 			// 
-			this.lblSubnet.AutoSize = true;
-			this.lblSubnet.Location = new System.Drawing.Point(372, 54);
-			this.lblSubnet.Name = "lblSubnet";
-			this.lblSubnet.Size = new System.Drawing.Size(0, 13);
-			this.lblSubnet.TabIndex = 16;
+			this.lblStatus.AutoSize = true;
+			this.lblStatus.Location = new System.Drawing.Point(427, 210);
+			this.lblStatus.Name = "lblStatus";
+			this.lblStatus.Size = new System.Drawing.Size(25, 13);
+			this.lblStatus.TabIndex = 9;
+			this.lblStatus.Text = "___";
+			// 
+			// lbxOpenports
+			// 
+			this.lbxOpenports.FormattingEnabled = true;
+			this.lbxOpenports.Location = new System.Drawing.Point(12, 152);
+			this.lbxOpenports.Name = "lbxOpenports";
+			this.lbxOpenports.Size = new System.Drawing.Size(369, 108);
+			this.lbxOpenports.TabIndex = 10;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(572, 348);
+			this.Controls.Add(this.lbxOpenports);
+			this.Controls.Add(this.lblStatus);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.dgvStations);
 			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.dgvOpenPorts);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnFindStations);
 			this.Controls.Add(this.btnScan);
@@ -327,11 +348,11 @@
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudTo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFrom)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dgvOpenPorts)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStations)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -344,7 +365,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.RadioButton rbtnRange;
 		private System.Windows.Forms.RadioButton rbtnFullScan;
-		private System.Windows.Forms.DataGridView dgvOpenPorts;
 		private System.Windows.Forms.NumericUpDown nudFrom;
 		private System.Windows.Forms.NumericUpDown nudTo;
 		private System.Windows.Forms.GroupBox groupBox2;
@@ -359,5 +379,8 @@
 		private System.Windows.Forms.DataGridView dgvStations;
 		private System.Windows.Forms.Label lblSubnet;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label lblStatus;
+		private System.Windows.Forms.ListBox lbxOpenports;
 	}
 }
