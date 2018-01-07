@@ -31,7 +31,6 @@ namespace RawSocket
 		#region private functions
 		private void Init()
 		{
-			Console.WriteLine("Preparing ICMP packet");
 			data = new byte[BUFFER_SIZE];
 			host = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Icmp);
 			iep = new IPEndPoint(IPAddress.Parse(hostIP), 0);
@@ -49,12 +48,10 @@ namespace RawSocket
 			packet.Checksum = packet.getChecksum();
 
 			host.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 100);
-			Console.WriteLine("ICMP packet prepared");
 		}
 
 		private void StartPing()
 		{
-			Console.WriteLine("Sending ICMP packet");
 			host.SendTo(packet.getBytes(), packet.Messagesize + 4, SocketFlags.None, iep);
 			/*try
 			{

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace RawSocket
 {
@@ -46,24 +47,25 @@ namespace RawSocket
 		public void BeginScanPort(ref List<int> OpenPorts)
 		{
 			//whole operation will take about 11 mins for full scan
-			for (int port = this.range.From; port < this.range.To; port++)
+			for (int port = this.range.From; port <+ this.range.To; port++)
 			{
 				try
 				{
-					IAsyncResult result = socket.BeginConnect(this.remoteHost, port, null, null);
-					bool ok = result.AsyncWaitHandle.WaitOne(timeout);	//wait for 10ms
-					if (ok)
-					{
-						OpenPorts.Add(port);
-					}
+					socket.Connect(remoteHost, port);
 				}
 				catch (SocketException)
 				{
-					throw null;
+					Console.WriteLine("Port " + port + " closed");
 				}
 				finally
 				{
-					socket.Disconnect(true);
+					if (socket.Connected)
+					{
+						Console.WriteLine("Port " + port + " opened");
+						OpenPorts.Add(port);
+						socket.Close();
+						socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+					}
 				}
 			}
 		}
