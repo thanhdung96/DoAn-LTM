@@ -271,6 +271,7 @@
 			// 
 			// cbxIP
 			// 
+			this.cbxIP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxIP.FormattingEnabled = true;
 			this.cbxIP.Location = new System.Drawing.Point(6, 29);
 			this.cbxIP.Name = "cbxIP";
@@ -291,7 +292,6 @@
 			// 
 			this.dgvStations.AllowUserToAddRows = false;
 			this.dgvStations.AllowUserToDeleteRows = false;
-			this.dgvStations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvStations.Location = new System.Drawing.Point(12, 12);
 			this.dgvStations.MultiSelect = false;
 			this.dgvStations.Name = "dgvStations";

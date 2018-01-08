@@ -28,7 +28,7 @@ namespace DoAn_LTM.GUI
 
 			hosts = new List<IPMacPair>();
 
-			dgvStations.DataSource = hosts;
+			//dgvStations.DataSource = hosts;
 
 			rbtnFullScan.CheckedChanged += rbtnFullScan_CheckedChanged;
 		}
@@ -158,7 +158,7 @@ namespace DoAn_LTM.GUI
 
 			if (dgvStations.SelectedCells.Count > 0)
 			{
-				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
+				int selectedrowindex = dgvStations.SelectedCells[1].RowIndex;
 				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
 				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
 
