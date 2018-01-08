@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace RawSocket
 {
@@ -55,13 +54,11 @@ namespace RawSocket
 				}
 				catch (SocketException)
 				{
-					Console.WriteLine("Port " + port + " closed");
 				}
 				finally
 				{
 					if (socket.Connected)
 					{
-						Console.WriteLine("Port " + port + " opened");
 						OpenPorts.Add(port);
 						socket.Close();
 						socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

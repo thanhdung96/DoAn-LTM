@@ -1,20 +1,23 @@
-﻿using System.Windows.Forms;
+﻿using RawSocket;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
-using RawSocket;
-using System;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace DoAn_LTM.GUI
 {
 	public partial class MainForm : Form
 	{
 		private List<IPMacPair> hosts;
+		private List<int> OpenPorts;
 
 		#region events implements
 		public MainForm()
 		{
 			InitializeComponent();
+			pgbStatus.Style = ProgressBarStyle.Blocks;
 		}
 
 		private void MainForm_Shown(object sender, System.EventArgs e)
@@ -47,11 +50,16 @@ namespace DoAn_LTM.GUI
 
 		private void btnScan_Click(object sender, System.EventArgs e)
 		{
-			string IP;
+			ThreadStart childref = new ThreadStart(ScanPort);
+			Thread childThread = new Thread(childref);
+			childThread.Start();
+
+			pgbStatus.Style = ProgressBarStyle.Marquee;
+			btnScan.Enabled = false;
+			/*string IP;
 			IPAddress remoteHost;
 			PortDiscovery discovery;
 			UInt16 from, to;
-			List<int> OpenPorts;
 
 			if (dgvStations.SelectedCells.Count > 0)
 			{
@@ -70,7 +78,37 @@ namespace DoAn_LTM.GUI
 				foreach(int port in OpenPorts)
 					lbxOpenports.Items.Add(port);
 				lblStatus.Text = OpenPorts.Count + " port(s) are open";
+			}*/
+		}
+
+		private void ScanPort()
+		{
+			string IP;
+			IPAddress remoteHost;
+			PortDiscovery discovery;
+			UInt16 from, to;
+
+			if (dgvStations.SelectedCells.Count > 0)
+			{
+				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
+				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
+				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
+
+				remoteHost = IPAddress.Parse(IP);
+				from = Convert.ToUInt16(nudFrom.Value);
+				to = Convert.ToUInt16(nudTo.Value);
+				discovery = new PortDiscovery(from, to, remoteHost);
+				OpenPorts = new List<int>();
+
+				discovery.BeginScanPort(ref OpenPorts);
+
+				foreach (int port in OpenPorts)
+					lbxOpenports.Items.Add(port);
+				lblStatus.Text = OpenPorts.Count + " port(s) are open";
 			}
+
+			pgbStatus.Style = ProgressBarStyle.Blocks;
+			btnScan.Enabled = true;
 		}
 
 		void rbtnFullScan_CheckedChanged(object sender, System.EventArgs e)

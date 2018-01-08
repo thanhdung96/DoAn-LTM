@@ -52,6 +52,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.lblStatus = new System.Windows.Forms.Label();
 			this.lbxOpenports = new System.Windows.Forms.ListBox();
+			this.pgbStatus = new System.Windows.Forms.ProgressBar();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
@@ -325,11 +326,19 @@
 			this.lbxOpenports.Size = new System.Drawing.Size(369, 108);
 			this.lbxOpenports.TabIndex = 10;
 			// 
+			// pgbStatus
+			// 
+			this.pgbStatus.Location = new System.Drawing.Point(387, 237);
+			this.pgbStatus.Name = "pgbStatus";
+			this.pgbStatus.Size = new System.Drawing.Size(173, 23);
+			this.pgbStatus.TabIndex = 11;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(572, 348);
+			this.Controls.Add(this.pgbStatus);
 			this.Controls.Add(this.lbxOpenports);
 			this.Controls.Add(this.lblStatus);
 			this.Controls.Add(this.label6);
@@ -382,5 +391,6 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label lblStatus;
 		private System.Windows.Forms.ListBox lbxOpenports;
+		private System.Windows.Forms.ProgressBar pgbStatus;
 	}
 }
