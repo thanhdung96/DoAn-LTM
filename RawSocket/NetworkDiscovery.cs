@@ -42,7 +42,7 @@ namespace RawSocket
 			packet.Checksum = 0;
 			Buffer.BlockCopy(BitConverter.GetBytes((short)1), 0, packet.Message, 0, 2);
 			Buffer.BlockCopy(BitConverter.GetBytes((short)1), 0, packet.Message, 2, 2);
-			data = Encoding.ASCII.GetBytes("test packet");
+			data = Encoding.ASCII.GetBytes("a");
 			Buffer.BlockCopy(data, 0, packet.Message, 4, data.Length);
 			packet.Messagesize = data.Length + 4;
 			packet.Checksum = packet.getChecksum();

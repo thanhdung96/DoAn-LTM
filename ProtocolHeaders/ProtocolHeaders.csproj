@@ -42,6 +42,7 @@
     <Compile Include="ICMPHeader.cs" />
     <Compile Include="IPHeader.cs" />
     <Compile Include="IPMacPair.cs" />
+    <Compile Include="MACVendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpHeader.cs" />
   </ItemGroup>

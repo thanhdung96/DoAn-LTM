@@ -54,6 +54,7 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\VendorList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\MainForm.resx">
@@ -82,9 +83,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProtocolHeaders\ProtocolHeaders.csproj">
       <Project>{d6197680-4a63-4e41-95e1-e068b6565c20}</Project>
@@ -94,6 +93,9 @@
       <Project>{8cdfdfed-713d-4609-9d95-3a68a6fa3c57}</Project>
       <Name>RawSocket</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Network\mv.dat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

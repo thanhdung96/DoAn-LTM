@@ -1,10 +1,12 @@
-﻿using RawSocket;
+﻿using DoAn_LTM.Network;
+using ProtocolHeaders;
+using RawSocket;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace DoAn_LTM.GUI
 {
@@ -34,15 +36,17 @@ namespace DoAn_LTM.GUI
 		private void btnFindStations_Click(object sender, System.EventArgs e)
 		{
 			NetworkDiscovery discovery = new NetworkDiscovery(lblBroadcast.Text);
-			hosts = discovery.getARP();
+			List<IPMacPair> temp = new List<IPMacPair>();
+			temp = discovery.getARP();
 
 			//filtering ip in same subnet
-			List<IPMacPair> temp = new List<IPMacPair>();
-			for (int i = 0; i < hosts.Count; i++)
-				if (CheckSameSubnet(IPAddress.Parse(hosts[i].IP)))
-					temp.Add(hosts[i]);
-			hosts.Clear();
-			hosts = temp;
+			for (int i = 0; i < temp.Count; i++)
+				if (CheckSameSubnet(IPAddress.Parse(temp[i].IP)))
+					hosts.Add(temp[i]);
+			temp.Clear();
+
+			//update vendor from mac
+			UpdateVendor();
 
 			dgvStations.DataSource = null;
 			dgvStations.DataSource = hosts;
@@ -56,59 +60,6 @@ namespace DoAn_LTM.GUI
 
 			pgbStatus.Style = ProgressBarStyle.Marquee;
 			btnScan.Enabled = false;
-			/*string IP;
-			IPAddress remoteHost;
-			PortDiscovery discovery;
-			UInt16 from, to;
-
-			if (dgvStations.SelectedCells.Count > 0)
-			{
-				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
-				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
-				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
-
-				remoteHost = IPAddress.Parse(IP);
-				from = Convert.ToUInt16(nudFrom.Value);
-				to = Convert.ToUInt16(nudTo.Value);
-				discovery = new PortDiscovery(from, to, remoteHost);
-				OpenPorts = new List<int>();
-
-				discovery.BeginScanPort(ref OpenPorts);
-
-				foreach(int port in OpenPorts)
-					lbxOpenports.Items.Add(port);
-				lblStatus.Text = OpenPorts.Count + " port(s) are open";
-			}*/
-		}
-
-		private void ScanPort()
-		{
-			string IP;
-			IPAddress remoteHost;
-			PortDiscovery discovery;
-			UInt16 from, to;
-
-			if (dgvStations.SelectedCells.Count > 0)
-			{
-				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
-				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
-				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
-
-				remoteHost = IPAddress.Parse(IP);
-				from = Convert.ToUInt16(nudFrom.Value);
-				to = Convert.ToUInt16(nudTo.Value);
-				discovery = new PortDiscovery(from, to, remoteHost);
-				OpenPorts = new List<int>();
-
-				discovery.BeginScanPort(ref OpenPorts);
-
-				foreach (int port in OpenPorts)
-					lbxOpenports.Items.Add(port);
-				lblStatus.Text = OpenPorts.Count + " port(s) are open";
-			}
-
-			pgbStatus.Style = ProgressBarStyle.Blocks;
-			btnScan.Enabled = true;
 		}
 
 		void rbtnFullScan_CheckedChanged(object sender, System.EventArgs e)
@@ -185,6 +136,55 @@ namespace DoAn_LTM.GUI
 				broadcastIPBytes[i] = (byte)(hostBytes[i] | (byte)~maskBytes[i]);
 			}
 			return new IPAddress(broadcastIPBytes);
+		}
+
+		private void UpdateVendor()
+		{
+			VendorList vl = new VendorList();
+
+			foreach (IPMacPair imp in hosts)
+			{
+				string[] mac = imp.MAC.Split('-');
+				imp.Vendor = vl.FindVendorByMac(string.Join("", mac, 0, 3));
+			}
+		}
+
+		private void ScanPort()
+		{
+			string IP;
+			IPAddress remoteHost;
+			PortDiscovery discovery;
+			UInt16 from, to;
+
+			if (dgvStations.SelectedCells.Count > 0)
+			{
+				int selectedrowindex = dgvStations.SelectedCells[0].RowIndex;
+				DataGridViewRow selectedRow = dgvStations.Rows[selectedrowindex];
+				IP = Convert.ToString(selectedRow.Cells["IP"].Value);
+
+				remoteHost = IPAddress.Parse(IP);
+				if (rbtnFullScan.Checked)
+				{
+					from = 1;
+					to = 65535;
+				}
+				else
+				{
+					from = Convert.ToUInt16(nudFrom.Value);
+					to = Convert.ToUInt16(nudTo.Value);
+				}
+				discovery = new PortDiscovery(from, to, remoteHost);
+				OpenPorts = new List<int>();
+
+				discovery.BeginScanPort(ref OpenPorts);
+
+				foreach (int port in OpenPorts)
+					lbxOpenports.Items.Add(port);
+				lblStatus.Text = OpenPorts.Count + " port(s) are open";
+			}
+
+			pgbStatus.Style = ProgressBarStyle.Blocks;
+			btnScan.Enabled = true;
 		}
 		#endregion
 	}

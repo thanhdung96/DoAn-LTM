@@ -1,9 +1,10 @@
-﻿namespace RawSocket
+﻿namespace ProtocolHeaders
 {
 	public class IPMacPair
 	{
 		private string ip;
 		private string mac;
+		private string vendor;
 
 		public string MAC
 		{
@@ -17,6 +18,12 @@
 			set { ip = value; }
 		}
 
+		public string Vendor
+		{
+			get { return vendor; }
+			set { vendor = value; }
+		}
+		
 		public IPMacPair(string ip, string mac)
 		{
 			this.IP = ip;
