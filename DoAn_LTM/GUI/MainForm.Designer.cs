@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.btnScan = new System.Windows.Forms.Button();
 			this.btnFindStations = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -53,18 +54,22 @@
 			this.lblStatus = new System.Windows.Forms.Label();
 			this.lbxOpenports = new System.Windows.Forms.ListBox();
 			this.pgbStatus = new System.Windows.Forms.ProgressBar();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.rbtnBroadcast = new System.Windows.Forms.RadioButton();
+			this.rbtnAgressively = new System.Windows.Forms.RadioButton();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStations)).BeginInit();
+			this.groupBox3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnScan
 			// 
-			this.btnScan.Location = new System.Drawing.Point(387, 41);
+			this.btnScan.Location = new System.Drawing.Point(6, 116);
 			this.btnScan.Name = "btnScan";
-			this.btnScan.Size = new System.Drawing.Size(173, 23);
+			this.btnScan.Size = new System.Drawing.Size(157, 23);
 			this.btnScan.TabIndex = 1;
 			this.btnScan.Text = "Scan";
 			this.btnScan.UseVisualStyleBackColor = true;
@@ -72,9 +77,9 @@
 			// 
 			// btnFindStations
 			// 
-			this.btnFindStations.Location = new System.Drawing.Point(387, 12);
+			this.btnFindStations.Location = new System.Drawing.Point(6, 65);
 			this.btnFindStations.Name = "btnFindStations";
-			this.btnFindStations.Size = new System.Drawing.Size(173, 23);
+			this.btnFindStations.Size = new System.Drawing.Size(147, 23);
 			this.btnFindStations.TabIndex = 2;
 			this.btnFindStations.Text = "Find Stations";
 			this.btnFindStations.UseVisualStyleBackColor = true;
@@ -88,12 +93,13 @@
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.rbtnRange);
 			this.groupBox1.Controls.Add(this.rbtnFullScan);
-			this.groupBox1.Location = new System.Drawing.Point(387, 70);
+			this.groupBox1.Controls.Add(this.btnScan);
+			this.groupBox1.Location = new System.Drawing.Point(391, 113);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(173, 120);
+			this.groupBox1.Size = new System.Drawing.Size(173, 147);
 			this.groupBox1.TabIndex = 3;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Scan Mode";
+			this.groupBox1.Text = "Port Scan Mode";
 			// 
 			// nudTo
 			// 
@@ -204,10 +210,11 @@
 			// lblSubnet
 			// 
 			this.lblSubnet.AutoSize = true;
-			this.lblSubnet.Location = new System.Drawing.Point(372, 54);
+			this.lblSubnet.Location = new System.Drawing.Point(391, 52);
 			this.lblSubnet.Name = "lblSubnet";
-			this.lblSubnet.Size = new System.Drawing.Size(0, 13);
+			this.lblSubnet.Size = new System.Drawing.Size(25, 13);
 			this.lblSubnet.TabIndex = 16;
+			this.lblSubnet.Text = "___";
 			// 
 			// label5
 			// 
@@ -221,10 +228,11 @@
 			// lblNICName
 			// 
 			this.lblNICName.AutoSize = true;
-			this.lblNICName.Location = new System.Drawing.Point(378, 39);
+			this.lblNICName.Location = new System.Drawing.Point(391, 39);
 			this.lblNICName.Name = "lblNICName";
-			this.lblNICName.Size = new System.Drawing.Size(0, 13);
+			this.lblNICName.Size = new System.Drawing.Size(25, 13);
 			this.lblNICName.TabIndex = 14;
+			this.lblNICName.Text = "___";
 			// 
 			// label9
 			// 
@@ -238,10 +246,11 @@
 			// lblBroadcast
 			// 
 			this.lblBroadcast.AutoSize = true;
-			this.lblBroadcast.Location = new System.Drawing.Point(378, 26);
+			this.lblBroadcast.Location = new System.Drawing.Point(391, 26);
 			this.lblBroadcast.Name = "lblBroadcast";
-			this.lblBroadcast.Size = new System.Drawing.Size(0, 13);
+			this.lblBroadcast.Size = new System.Drawing.Size(25, 13);
 			this.lblBroadcast.TabIndex = 12;
+			this.lblBroadcast.Text = "___";
 			// 
 			// label7
 			// 
@@ -255,10 +264,11 @@
 			// lblNetmask
 			// 
 			this.lblNetmask.AutoSize = true;
-			this.lblNetmask.Location = new System.Drawing.Point(378, 13);
+			this.lblNetmask.Location = new System.Drawing.Point(391, 13);
 			this.lblNetmask.Name = "lblNetmask";
-			this.lblNetmask.Size = new System.Drawing.Size(0, 13);
+			this.lblNetmask.Size = new System.Drawing.Size(25, 13);
 			this.lblNetmask.TabIndex = 10;
+			this.lblNetmask.Text = "___";
 			// 
 			// label4
 			// 
@@ -303,7 +313,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(388, 197);
+			this.label6.Location = new System.Drawing.Point(19, 351);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(40, 13);
 			this.label6.TabIndex = 8;
@@ -312,7 +322,7 @@
 			// lblStatus
 			// 
 			this.lblStatus.AutoSize = true;
-			this.lblStatus.Location = new System.Drawing.Point(427, 210);
+			this.lblStatus.Location = new System.Drawing.Point(58, 364);
 			this.lblStatus.Name = "lblStatus";
 			this.lblStatus.Size = new System.Drawing.Size(25, 13);
 			this.lblStatus.TabIndex = 9;
@@ -328,16 +338,51 @@
 			// 
 			// pgbStatus
 			// 
-			this.pgbStatus.Location = new System.Drawing.Point(387, 237);
+			this.pgbStatus.Location = new System.Drawing.Point(18, 391);
 			this.pgbStatus.Name = "pgbStatus";
-			this.pgbStatus.Size = new System.Drawing.Size(173, 23);
+			this.pgbStatus.Size = new System.Drawing.Size(542, 23);
 			this.pgbStatus.TabIndex = 11;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.rbtnBroadcast);
+			this.groupBox3.Controls.Add(this.rbtnAgressively);
+			this.groupBox3.Controls.Add(this.btnFindStations);
+			this.groupBox3.Location = new System.Drawing.Point(391, 12);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(159, 95);
+			this.groupBox3.TabIndex = 12;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Ping Mode";
+			// 
+			// rbtnBroadcast
+			// 
+			this.rbtnBroadcast.AutoSize = true;
+			this.rbtnBroadcast.Checked = true;
+			this.rbtnBroadcast.Location = new System.Drawing.Point(6, 42);
+			this.rbtnBroadcast.Name = "rbtnBroadcast";
+			this.rbtnBroadcast.Size = new System.Drawing.Size(73, 17);
+			this.rbtnBroadcast.TabIndex = 1;
+			this.rbtnBroadcast.TabStop = true;
+			this.rbtnBroadcast.Text = "Broadcast";
+			this.rbtnBroadcast.UseVisualStyleBackColor = true;
+			// 
+			// rbtnAgressively
+			// 
+			this.rbtnAgressively.AutoSize = true;
+			this.rbtnAgressively.Location = new System.Drawing.Point(6, 19);
+			this.rbtnAgressively.Name = "rbtnAgressively";
+			this.rbtnAgressively.Size = new System.Drawing.Size(78, 17);
+			this.rbtnAgressively.TabIndex = 0;
+			this.rbtnAgressively.Text = "Agressively";
+			this.rbtnAgressively.UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(572, 348);
+			this.ClientSize = new System.Drawing.Size(576, 431);
+			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.pgbStatus);
 			this.Controls.Add(this.lbxOpenports);
 			this.Controls.Add(this.lblStatus);
@@ -345,10 +390,9 @@
 			this.Controls.Add(this.dgvStations);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.btnFindStations);
-			this.Controls.Add(this.btnScan);
-			this.MaximumSize = new System.Drawing.Size(588, 387);
-			this.MinimumSize = new System.Drawing.Size(588, 387);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximumSize = new System.Drawing.Size(592, 470);
+			this.MinimumSize = new System.Drawing.Size(16, 387);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MainForm";
@@ -360,6 +404,8 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStations)).EndInit();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -392,5 +438,8 @@
 		private System.Windows.Forms.Label lblStatus;
 		private System.Windows.Forms.ListBox lbxOpenports;
 		private System.Windows.Forms.ProgressBar pgbStatus;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.RadioButton rbtnBroadcast;
+		private System.Windows.Forms.RadioButton rbtnAgressively;
 	}
 }

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using NetTools;
 
 namespace RawSocket
 {
@@ -15,17 +16,18 @@ namespace RawSocket
 		private ICMPHeader packet;
 		private Socket host;
 		private string hostIP;
+		private string subnet;
 		private IPEndPoint iep;
 		private EndPoint ep;
 
 		private byte[] data;
-		private int recv;
 		private const int BUFFER_SIZE = 1024;
 		#endregion
 
-		public NetworkDiscovery(string broadcastIP)
+		public NetworkDiscovery(string subnet, string toIP)
 		{
-			this.hostIP = broadcastIP;
+			this.hostIP = toIP;
+			this.subnet = subnet;
 		}
 
 		#region private functions
@@ -53,26 +55,29 @@ namespace RawSocket
 		private void StartPing()
 		{
 			host.SendTo(packet.getBytes(), packet.Messagesize + 4, SocketFlags.None, iep);
-			/*try
-			{
-				data = new byte[BUFFER_SIZE];
-				recv = host.ReceiveFrom(data, ref ep)	;
-				Console.WriteLine("ICMP response received");
-			}
-			catch (SocketException exc)
-			{
-				Console.WriteLine(exc.Message);
-			}
-
-			ICMPHeader response = new ICMPHeader(data, recv);*/
 			host.Close();
+		}
+
+		private void StartPingManually()
+		{
+			IPAddressRange range = new IPAddressRange(IPAddress.Parse(subnet), IPAddress.Parse(this.hostIP));
+			foreach (IPAddress ip in range)
+			{
+				IPEndPoint manualIEP = new IPEndPoint(ip,0);
+				host.SendTo(packet.getBytes(), packet.Messagesize + 4, SocketFlags.None, (EndPoint)manualIEP);
+				host.Close();
+				host = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Icmp);
+			}
 		}
 		#endregion
 
-		public List<IPMacPair> getARP()
+		public List<IPMacPair> getARP(bool manual)
 		{
 			Init();
-			StartPing();
+			if (!manual)
+				StartPing();
+			else
+				StartPingManually();
 
 			List<IPMacPair> pair = new List<IPMacPair>();
 			Process pProcess = new System.Diagnostics.Process();
